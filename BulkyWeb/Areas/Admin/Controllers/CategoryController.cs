@@ -47,11 +47,11 @@ namespace BulkyWeb.Areas.Admin.Controllers
             if (categoryId == null || categoryId == 0)
                 return NotFound();
 
-            var categoty = _unitOfWork.CategoryRepository.Get(c => c.Id == categoryId);
-            if (categoty == null)
+            Category? category = _unitOfWork.CategoryRepository.Get(c => c.Id==categoryId);
+            if (category == null)
                 return NotFound();
 
-            return View(categoty);
+            return View(category);
         }
 
         [HttpPost]

@@ -1,13 +1,12 @@
 ﻿using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
-using System.Linq.Expressions;
 
 namespace Bulky.DataAccess.Repository
 {
     public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
-        ApplicationDbContext _dbContext { get; set; }
+        ApplicationDbContext _dbContext;
 
         public CategoryRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
