@@ -121,6 +121,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
             var productList = _unitOfWork.ProductRepository.GetAll(includeProperties: "Category").ToList();
             return Json(new { success = true, message = "Dlete Successful" });
         }
+
         #endregion
     }
 }
