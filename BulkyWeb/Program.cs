@@ -31,6 +31,20 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
+builder.Services.AddMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddAuthentication().AddFacebook(options =>
+{
+    options.AppId = "1725281671587415";
+    options.AppSecret = "4ae2f2934a32954fe3ad0ed3e2b4f3b0";
+});
+
 // Build application
 var app = builder.Build();
 
@@ -51,8 +65,12 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+app.UseSession();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();
