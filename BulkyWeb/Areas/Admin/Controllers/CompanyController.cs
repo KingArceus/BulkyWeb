@@ -76,7 +76,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
             _unitOfWork.Save();
 
             var productList = _unitOfWork.CompanyRepository.GetAll().ToList();
-            return Json(new { success = true, message = "Dlete Successful" });
+            return Json(new { success = true, message = "Delete Successful" });
         }
         #endregion
     }
