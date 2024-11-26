@@ -61,20 +61,6 @@ namespace BulkyWeb.Areas.Admin.Controllers
                 {
                     string filename = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
-
-                    if (!string.IsNullOrEmpty(productVM.Product.ImageUrl))
-                    {
-                        var oldPath = Path.Combine(wwwRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
-
-                        if (System.IO.File.Exists(oldPath)) System.IO.File.Delete(oldPath);
-                    }
-
-                    using (var fileStream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
-                    {
-                        formFile.CopyTo(fileStream);
-                    }
-
-                    productVM.Product.ImageUrl = @"\images\product\" + filename;
                 }
 
                 if (productVM.Product.Id == 0)
@@ -113,10 +99,6 @@ namespace BulkyWeb.Areas.Admin.Controllers
             {
                 return Json(new {success = false, message = "Error while deleting"});
             }
-
-            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, deleteProduct.ImageUrl.TrimStart('\\'));
-
-            if (System.IO.File.Exists(oldImagePath)) System.IO.File.Delete(oldImagePath);
 
             _unitOfWork.ProductRepository.Remove(deleteProduct);
             _unitOfWork.Save();
